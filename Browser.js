@@ -174,30 +174,43 @@ h.insertBefore(cl, h.firstChild);
             document.onmousemove=null;
         }
 
-        // Resize observer to clamp size
-        new ResizeObserver(()=>{
-            let w=Math.min(c.offsetWidth,window.innerWidth-c.offsetLeft);
-            let h=Math.min(c.offsetHeight,window.innerHeight-c.offsetTop);
-            c.style.width=w+"px";
-            c.style.height=h+"px";
-        }).observe(c);
+        // --- Replace the ResizeObserver with this ---
+new ResizeObserver(()=>{
+    let minW = 300, minH = 200;
+    let maxW = window.innerWidth - c.offsetLeft;
+    let maxH = window.innerHeight - c.offsetTop;
 
-        // Animation loader
-        function loadNewURL(u){
-            gsap.to(c,{duration:0.5,borderRadius:"50%",scale:0.9});
-            setTimeout(function(){
-                i.src=u;
-                inp.value=u;
-                gsap.to(c,{duration:0.5,borderRadius:"12px",scale:1});
-            },500);
+    let w = Math.max(minW, Math.min(c.offsetWidth, maxW));
+    let h = Math.max(minH, Math.min(c.offsetHeight, maxH));
+
+    c.style.width = w + "px";
+    c.style.height = h + "px";
+}).observe(c);
+
+
+        // --- Replace the GSAP animation with this ---
+function loadNewURL(u){
+    // animate only the border radius + opacity
+    gsap.to(c,{duration:0.3,borderRadius:"50%",opacity:0.8});
+    setTimeout(function(){
+        i.src=u;
+        inp.value=u;
+        gsap.to(c,{duration:0.3,borderRadius:"12px",opacity:1});
+    },300);
+}
+
+
+        // Toggle browser with Shift+H
+document.addEventListener("keydown", function(ev) {
+    if (ev.key.toLowerCase() === "h" && ev.shiftKey && !ev.target.matches("input, textarea")) {
+        if (c.style.display === "none") {
+            c.style.display = "block";
+        } else {
+            c.style.display = "none";
         }
+    }
+});
 
-        // Toggle browser with "H"
-        document.addEventListener("keydown",function(ev){
-            if(ev.key.toLowerCase()==="h" && !ev.target.matches("input, textarea")){
-                c.style.display=c.style.display==="none"?"block":"none";
-            }
-        });
 
         // Toggle topbar with Shift+F
         document.addEventListener("keydown",function(ev){
