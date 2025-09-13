@@ -163,7 +163,6 @@ h.insertBefore(cl, h.firstChild);
             p3=e.clientX;p4=e.clientY;
             let newTop=c.offsetTop-p2;
             let newLeft=c.offsetLeft-p1;
-            
             // Clamp inside window
             newTop=Math.max(0,Math.min(window.innerHeight-c.offsetHeight,newTop));
             newLeft=Math.max(0,Math.min(window.innerWidth-c.offsetWidth,newLeft));
@@ -175,40 +174,34 @@ h.insertBefore(cl, h.firstChild);
             document.onmousemove=null;
         }
 
+        // Resize observer to clamp size
         new ResizeObserver(()=>{
-    let minW = 300, minH = 200;
-    let maxW = window.innerWidth - c.offsetLeft;
-    let maxH = window.innerHeight - c.offsetTop;
+            let w=Math.min(c.offsetWidth,window.innerWidth-c.offsetLeft);
+            let h=Math.min(c.offsetHeight,window.innerHeight-c.offsetTop);
+            c.style.width=w+"px";
+            c.style.height=h+"px";
+        }).observe(c);
 
-    let w = Math.max(minW, Math.min(c.offsetWidth, maxW));
-    let h = Math.max(minH, Math.min(c.offsetHeight, maxH));
-
-    if (w !== c.offsetWidth) c.style.width = w + "px";
-    if (h !== c.offsetHeight) c.style.height = h + "px";
-}).observe(c);
-
-
+        // Animation loader
         function loadNewURL(u){
-    gsap.to(c,{duration:0.3,borderRadius:"50%",opacity:0.7});
-setTimeout(function(){
-    i.src=u;
-    inp.value=u;
-    gsap.to(c,{duration:0.3,borderRadius:"12px",opacity:1});
-},300);
+            gsap.to(c,{duration:0.5,borderRadius:"50%",scale:0.9});
+            setTimeout(function(){
+                i.src=u;
+                inp.value=u;
+                gsap.to(c,{duration:0.5,borderRadius:"12px",scale:1});
+            },500);
+        }
 
-
-        // Shift + H to hide browser
-        document.addEventListener("keydown",function(ev){
-    if(ev.key.toLowerCase()==="h" && !ev.target.matches("input, textarea")){
-        if(c.style.display==="none"){
-            c.style.display="block";
-            c.style.transform=""; // clear GSAP leftovers
+        // Toggle browser with Shift+H
+document.addEventListener("keydown", function(ev) {
+    if (ev.key.toLowerCase() === "h" && ev.shiftKey && !ev.target.matches("input, textarea")) {
+        if (c.style.display === "none") {
+            c.style.display = "block";
         } else {
-            c.style.display="none";
+            c.style.display = "none";
         }
     }
 });
-
 
 
         // Toggle topbar with Shift+F
