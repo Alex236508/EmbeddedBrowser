@@ -194,19 +194,34 @@ function stopDrag(){
         }
 
         // -------------------- SHIFT+H TO HIDE/SHOW --------------------
+let prevState = {
+    top: c.style.top,
+    left: c.style.left,
+    width: c.style.width,
+    height: c.style.height
+};
+
 document.addEventListener('keydown', (e) => {
     if (e.shiftKey && e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
         if (c.style.display === 'none') {
+            // restore position and size
             c.style.display = 'block';
-            // Reset transforms so it unhides correctly
+            c.style.top = prevState.top;
+            c.style.left = prevState.left;
+            c.style.width = prevState.width;
+            c.style.height = prevState.height;
             c.style.transform = 'scale(1)';
             c.style.borderRadius = '12px';
         } else {
+            // save current position/size
+            prevState.top = c.style.top;
+            prevState.left = c.style.left;
+            prevState.width = c.style.width;
+            prevState.height = c.style.height;
             c.style.display = 'none';
         }
     }
 });
-
 
 
         // Toggle topbar with Shift+F
