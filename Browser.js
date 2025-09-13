@@ -71,7 +71,7 @@ javascript:(function(){
         var i=document.createElement("iframe");
         i.style.cssText="width:100%;height:calc(100% - 70px);border:none;";
         i.id="rusic-modal";
-        i.src = "https://boxcat.radio-zvez.info";
+        i.src = "https://books.allisons.org";
 
         var historyArray=[],currentIndex=-1;
         backBtn.onclick=function(){
