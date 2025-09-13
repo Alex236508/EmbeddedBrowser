@@ -204,8 +204,16 @@ resizeObserver.observe(c);
     height: c.style.height
 };
 
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
+let prevState = {
+    top: c.style.top,
+    left: c.style.left,
+    width: c.style.width,
+    height: c.style.height
+};
+
+    // Hide/Unhide with Shift + s
+    document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.key.toLowerCase() === 's' && !e.target.matches('input, textarea')) {
         if (c.style.display === 'none') {
             // restore position and size without triggering ResizeObserver
             c.style.display = 'block';
