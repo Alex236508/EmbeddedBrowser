@@ -189,24 +189,26 @@ h.insertBefore(cl, h.firstChild);
 
 
         function loadNewURL(u){
-    gsap.to(c,{duration:0.3,borderRadius:"50%",opacity:0.8});
-    setTimeout(function(){
-        i.src=u;
-        inp.value=u;
-        gsap.to(c,{duration:0.3,borderRadius:"12px",opacity:1});
-    },300);
-}
+    gsap.to(c,{duration:0.3,borderRadius:"50%",opacity:0.7});
+setTimeout(function(){
+    i.src=u;
+    inp.value=u;
+    gsap.to(c,{duration:0.3,borderRadius:"12px",opacity:1});
+},300);
 
 
-        document.addEventListener("keydown", function(ev) {
-    if (ev.key.toLowerCase() === "h" && ev.shiftKey && !ev.target.matches("input, textarea")) {
-        if (c.style.display === "none") {
-            c.style.display = "block";
+        // Shift + H to hide browser
+        document.addEventListener("keydown",function(ev){
+    if(ev.key.toLowerCase()==="h" && !ev.target.matches("input, textarea")){
+        if(c.style.display==="none"){
+            c.style.display="block";
+            c.style.transform=""; // clear GSAP leftovers
         } else {
-            c.style.display = "none";
+            c.style.display="none";
         }
     }
 });
+
 
 
         // Toggle topbar with Shift+F
