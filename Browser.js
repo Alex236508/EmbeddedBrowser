@@ -176,12 +176,16 @@ function stopDrag(){
 }
 
         // Resize observer to clamp size
-        new ResizeObserver(()=>{
-            let w=Math.min(c.offsetWidth,window.innerWidth-c.offsetLeft);
-            let h=Math.min(c.offsetHeight,window.innerHeight-c.offsetTop);
-            c.style.width=w+"px";
-            c.style.height=h+"px";
-        }).observe(c);
+        let resizeObserver = new ResizeObserver(() => {
+    // Only shrink if the container would overflow the viewport
+    let w = Math.min(c.offsetWidth, window.innerWidth - c.offsetLeft);
+    let h = Math.min(c.offsetHeight, window.innerHeight - c.offsetTop);
+
+    // Only apply if smaller than current to prevent forced expansion
+    if (w < c.offsetWidth) c.style.width = w + "px";
+    if (h < c.offsetHeight) c.style.height = h + "px";
+});
+resizeObserver.observe(c);
 
         // Animation loader
         function loadNewURL(u){
