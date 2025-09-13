@@ -192,17 +192,12 @@ h.insertBefore(cl, h.firstChild);
             },500);
         }
 
-        // Toggle browser with Shift+H
-document.addEventListener("keydown", function(ev) {
-    if (ev.key.toLowerCase() === "h" && ev.shiftKey && !ev.target.matches("input, textarea")) {
-        if (c.style.display === "none") {
-            c.style.display = "block";
-        } else {
-            c.style.display = "none";
-        }
+        // -------------------- SHIFT+H TO HIDE/SHOW --------------------
+document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
+        c.style.display = (c.style.display === 'none') ? 'block' : 'none';
     }
 });
-
 
         // Toggle topbar with Shift+F
         document.addEventListener("keydown",function(ev){
