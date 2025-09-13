@@ -163,6 +163,7 @@ h.insertBefore(cl, h.firstChild);
             p3=e.clientX;p4=e.clientY;
             let newTop=c.offsetTop-p2;
             let newLeft=c.offsetLeft-p1;
+            
             // Clamp inside window
             newTop=Math.max(0,Math.min(window.innerHeight-c.offsetHeight,newTop));
             newLeft=Math.max(0,Math.min(window.innerWidth-c.offsetWidth,newLeft));
@@ -174,8 +175,7 @@ h.insertBefore(cl, h.firstChild);
             document.onmousemove=null;
         }
 
-        // --- Replace the ResizeObserver with this ---
-new ResizeObserver(()=>{
+        new ResizeObserver(()=>{
     let minW = 300, minH = 200;
     let maxW = window.innerWidth - c.offsetLeft;
     let maxH = window.innerHeight - c.offsetTop;
@@ -183,14 +183,12 @@ new ResizeObserver(()=>{
     let w = Math.max(minW, Math.min(c.offsetWidth, maxW));
     let h = Math.max(minH, Math.min(c.offsetHeight, maxH));
 
-    c.style.width = w + "px";
-    c.style.height = h + "px";
+    if (w !== c.offsetWidth) c.style.width = w + "px";
+    if (h !== c.offsetHeight) c.style.height = h + "px";
 }).observe(c);
 
 
-        // --- Replace the GSAP animation with this ---
-function loadNewURL(u){
-    // animate only the border radius + opacity
+        function loadNewURL(u){
     gsap.to(c,{duration:0.3,borderRadius:"50%",opacity:0.8});
     setTimeout(function(){
         i.src=u;
@@ -200,8 +198,7 @@ function loadNewURL(u){
 }
 
 
-        // Toggle browser with Shift+H
-document.addEventListener("keydown", function(ev) {
+        document.addEventListener("keydown", function(ev) {
     if (ev.key.toLowerCase() === "h" && ev.shiftKey && !ev.target.matches("input, textarea")) {
         if (c.style.display === "none") {
             c.style.display = "block";
