@@ -197,8 +197,7 @@ resizeObserver.observe(c);
             },500);
         }
 
-        // -------------------- SHIFT+H TO HIDE/SHOW --------------------
-let prevState = {
+        let prevState = {
     top: c.style.top,
     left: c.style.left,
     width: c.style.width,
@@ -206,16 +205,18 @@ let prevState = {
 };
 
 document.addEventListener('keydown', (e) => {
-    if (e.shiftKey && e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
+    if (e.ctrlKey && e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
         if (c.style.display === 'none') {
-            // restore position and size
+            // restore position and size without triggering ResizeObserver
             c.style.display = 'block';
+            resizeObserver.disconnect(); // temporarily disable
             c.style.top = prevState.top;
             c.style.left = prevState.left;
             c.style.width = prevState.width;
             c.style.height = prevState.height;
             c.style.transform = 'scale(1)';
             c.style.borderRadius = '12px';
+            resizeObserver.observe(c); // re-enable observer
         } else {
             // save current position/size
             prevState.top = c.style.top;
