@@ -36,39 +36,41 @@ javascript:(function(){
             border-radius:12px;
         `;
 
-        var h=document.createElement("div");
-h.id="rusic-header";
-h.style.cssText=`
-    width:100%;
-    height:30px;
-    background:#6C7A89;
-    cursor:move;
-    color:white;
-    font-family:sans-serif;
-    padding-left:30px;   /* leave space for the X on the left */
-    line-height:30px;
-    user-select:none;
-    position:relative;
+        var h = document.createElement("div");
+h.id = "rusic-header";
+h.style.cssText = `
+    width: 100%;
+    height: 30px;
+    background: #6C7A89;
+    cursor: move;
+    color: white;
+    font-family: sans-serif;
+    padding-left: 30px; /* leave space for X */
+    line-height: 30px;
+    user-select: none;
+    position: relative;
 `;
-h.textContent="Embedded Browser";
+h.textContent = "Embedded Browser";
 
-var cl=document.createElement("div");
-cl.innerHTML="❌";
-cl.style.cssText=`
-    position:absolute;
-    top:0;
-    left:5px;
-    font-size:16px;
-    line-height:30px;
-    cursor:pointer;
-    color:white;
-    background:none;   /* no background */
-    border:none;       /* no border */
-    padding:0;         /* no padding */
+var cl = document.createElement("div");
+cl.innerHTML = "❌";
+cl.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 5px;
+    font-size: 16px;
+    line-height: 30px;
+    cursor: pointer;
+    color: white;
+    background: none;
+    border: none;
+    padding: 0;
 `;
-cl.onclick=function(){c.remove();};
+cl.onclick = function() { c.remove(); };
 
+// insert close button before header text
 h.insertBefore(cl, h.firstChild);
+
 
         var tb=document.createElement("div");
         tb.id="rusic-toolbar";
@@ -149,30 +151,29 @@ h.insertBefore(cl, h.firstChild);
         c.appendChild(i);
         document.body.appendChild(c);
 
-        // Dragging
-        var p1=0,p2=0,p3=0,p4=0;
-        h.onmousedown=function(e){
-            e.preventDefault();
-            p3=e.clientX;p4=e.clientY;
-            document.onmouseup=stopDrag;
-            document.onmousemove=doDrag;
-        };
-        function doDrag(e){
-            e.preventDefault();
-            p1=p3-e.clientX;p2=p4-e.clientY;
-            p3=e.clientX;p4=e.clientY;
-            let newTop=c.offsetTop-p2;
-            let newLeft=c.offsetLeft-p1;
-            // Clamp inside window
-            newTop=Math.max(0,Math.min(window.innerHeight-c.offsetHeight,newTop));
-            newLeft=Math.max(0,Math.min(window.innerWidth-c.offsetWidth,newLeft));
-            c.style.top=newTop+"px";
-            c.style.left=newLeft+"px";
-        }
-        function stopDrag(){
-            document.onmouseup=null;
-            document.onmousemove=null;
-        }
+        var p1=0, p2=0, p3=0, p4=0;
+h.onmousedown = function(e){
+    e.preventDefault();
+    p3 = e.clientX; p4 = e.clientY;
+    document.onmouseup = stopDrag;
+    document.onmousemove = doDrag;
+};
+function doDrag(e){
+    e.preventDefault();
+    p1 = p3 - e.clientX; p2 = p4 - e.clientY;
+    p3 = e.clientX; p4 = e.clientY;
+    let newTop = c.offsetTop - p2;
+    let newLeft = c.offsetLeft - p1;
+    // Clamp inside window
+    newTop = Math.max(0, Math.min(window.innerHeight - c.offsetHeight, newTop));
+    newLeft = Math.max(0, Math.min(window.innerWidth - c.offsetWidth, newLeft));
+    c.style.top = newTop + "px";
+    c.style.left = newLeft + "px";
+}
+function stopDrag(){
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
 
         // Resize observer to clamp size
         new ResizeObserver(()=>{
@@ -195,9 +196,18 @@ h.insertBefore(cl, h.firstChild);
         // -------------------- SHIFT+H TO HIDE/SHOW --------------------
 document.addEventListener('keydown', (e) => {
     if (e.shiftKey && e.key.toLowerCase() === 'h' && !e.target.matches('input, textarea')) {
-        c.style.display = (c.style.display === 'none') ? 'block' : 'none';
+        if (c.style.display === 'none') {
+            c.style.display = 'block';
+            // Reset transforms so it unhides correctly
+            c.style.transform = 'scale(1)';
+            c.style.borderRadius = '12px';
+        } else {
+            c.style.display = 'none';
+        }
     }
 });
+
+
 
         // Toggle topbar with Shift+F
         document.addEventListener("keydown",function(ev){
