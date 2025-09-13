@@ -37,29 +37,38 @@ javascript:(function(){
         `;
 
         var h=document.createElement("div");
-        h.id="rusic-header";
-        h.style.cssText=`
-            width:100%;
-            height:30px;
-            background:#6C7A89;
-            cursor:move;
-            color:white;
-            font-family:sans-serif;
-            padding-left:10px;
-            line-height:30px;
-            user-select:none;
-        `;
-        h.textContent="Embedded Browser";
+h.id="rusic-header";
+h.style.cssText=`
+    width:100%;
+    height:30px;
+    background:#6C7A89;
+    cursor:move;
+    color:white;
+    font-family:sans-serif;
+    padding-left:30px;   /* leave space for the X on the left */
+    line-height:30px;
+    user-select:none;
+    position:relative;
+`;
+h.textContent="Embedded Browser";
 
-        var cl=document.createElement("div");
-        cl.innerHTML="❌";
-        cl.style.cssText=`
-            position:absolute;top:5px;right:10px;
-            color:white;font-weight:bold;font-size:18px;
-            cursor:pointer;background:#6C7A89;
-            padding:5px;border-radius:3px;
-        `;
-        cl.onclick=function(){c.remove();};
+var cl=document.createElement("div");
+cl.innerHTML="❌";
+cl.style.cssText=`
+    position:absolute;
+    top:0;
+    left:5px;
+    font-size:16px;
+    line-height:30px;
+    cursor:pointer;
+    color:white;
+    background:none;   /* no background */
+    border:none;       /* no border */
+    padding:0;         /* no padding */
+`;
+cl.onclick=function(){c.remove();};
+
+h.insertBefore(cl, h.firstChild);
 
         var tb=document.createElement("div");
         tb.id="rusic-toolbar";
