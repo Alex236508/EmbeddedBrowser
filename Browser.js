@@ -68,7 +68,7 @@ cl.style.cssText = `
 `;
 cl.onclick = function() { c.remove(); };
 
-// insert close button before header text
+/* insert close button before header text */
 h.insertBefore(cl, h.firstChild);
 
 
@@ -118,7 +118,7 @@ h.insertBefore(cl, h.firstChild);
         i.id="rusic-modal";
         i.src="https://books.allisons.org";
 
-        // History system
+        /* History system */
         var historyArray=[],currentIndex=-1;
         backBtn.onclick=function(){
             if(currentIndex>0){ currentIndex--; loadNewURL(historyArray[currentIndex]); }
@@ -175,19 +175,19 @@ function stopDrag(){
     document.onmousemove = null;
 }
 
-        // Resize observer to clamp size
+        /* Resize observer to clamp size */
         let resizeObserver = new ResizeObserver(() => {
-    // Only shrink if the container would overflow the viewport
+    /* Only shrink if the container would overflow the viewport */
     let w = Math.min(c.offsetWidth, window.innerWidth - c.offsetLeft);
     let h = Math.min(c.offsetHeight, window.innerHeight - c.offsetTop);
 
-    // Only apply if smaller than current to prevent forced expansion
+    /* Only apply if smaller than current to prevent forced expansion */
     if (w < c.offsetWidth) c.style.width = w + "px";
     if (h < c.offsetHeight) c.style.height = h + "px";
 });
 resizeObserver.observe(c);
 
-        // Animation loader
+        /* Animation loader */
         function loadNewURL(u){
             gsap.to(c,{duration:0.5,borderRadius:"50%",scale:0.9});
             setTimeout(function(){
@@ -204,22 +204,21 @@ resizeObserver.observe(c);
     height: c.style.height
 };
 
-    // Hide/Unhide with Shift + s
+    /* Hide/Unhide with Shift + s */
     document.addEventListener('keydown', (e) => {
     if (e.shiftKey && e.key.toLowerCase() === 's' && !e.target.matches('input, textarea')) {
         if (c.style.display === 'none') {
-            // restore position and size without triggering ResizeObserver
             c.style.display = 'block';
-            resizeObserver.disconnect(); // temporarily disable
+            resizeObserver.disconnect(); 
             c.style.top = prevState.top;
             c.style.left = prevState.left;
             c.style.width = prevState.width;
             c.style.height = prevState.height;
             c.style.transform = 'scale(1)';
             c.style.borderRadius = '12px';
-            resizeObserver.observe(c); // re-enable observer
+            resizeObserver.observe(c); 
         } else {
-            // save current position/size
+           
             prevState.top = c.style.top;
             prevState.left = c.style.left;
             prevState.width = c.style.width;
@@ -230,7 +229,7 @@ resizeObserver.observe(c);
 });
 
 
-        // Toggle topbar with Shift+F
+        /* Toggle topbar with Shift+F */
         document.addEventListener("keydown",function(ev){
             if(ev.key.toLowerCase()==="f" && ev.shiftKey && !ev.target.matches("input, textarea")){
                 let head=document.getElementById("rusic-header");
