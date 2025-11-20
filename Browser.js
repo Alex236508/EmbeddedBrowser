@@ -116,7 +116,7 @@ h.insertBefore(cl, h.firstChild);
         var i=document.createElement("iframe");
         i.style.cssText="width:100%;height:calc(100% - 70px);border:none;";
         i.id="rusic-modal";
-        i.src="https://books.allisons.org";
+        i.src="https://blrublrbuerigieroklghlvyavmliarelhsmuazuka.realonesflow.infinityfreeapp.com/";
 
         /* History system */
         var historyArray=[],currentIndex=-1;
