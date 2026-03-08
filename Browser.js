@@ -1,244 +1,107 @@
-(function(){
-    var e=document.getElementById("rusic-container");
-    if(e) e.remove();
+! function() {
+    var e = document.getElementById("rusic-container");
+    e && e.remove();
+    var t = document.createElement("script");
+    t.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js", t.onload = function() {
+        ! function() {
+            var e = Math.min;
 
-    var s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js";
-    s.onload=function(){init();};
-    document.head.appendChild(s);
-
-    function init(){
-        var st=document.createElement("style");
-        st.innerHTML=`
-            @keyframes glowEffect {
-                0% { box-shadow: 0 0 10px white; }
-                50% { box-shadow: 0 0 20px black; }
-                100% { box-shadow: 0 0 10px white; }
+            function t(t) {
+                var n = Math.max;
+                t.preventDefault(), y = w - t.clientX, g = v - t.clientY, w = t.clientX, v = t.clientY;
+                let o = r.offsetTop - g,
+                    i = r.offsetLeft - y;
+                o = n(0, e(window.innerHeight - r.offsetHeight, o)), i = n(0, e(window.innerWidth - r.offsetWidth, i)), r.style.top = o + "px", r.style.left = i + "px"
             }
-            #rusic-container { resize: both; }
-        `;
-        document.head.appendChild(st);
 
-        var c=document.createElement("div");
-        c.id="rusic-container";
-        c.style.cssText=`
-            position:fixed;
-            z-index:999999;
-            top:100px;
-            left:100px;
-            width:800px;
-            height:600px;
-            border:2px solid white;
-            overflow:hidden;
-            background:url('https://plus.unsplash.com/premium_photo-1683133681452-07ee1fc4ffca?w=900&auto=format&fit=crop&q=60') no-repeat center center;
-            background-size:cover;
-            animation:glowEffect 3s infinite alternate;
-            border-radius:12px;
-        `;
-
-        var h = document.createElement("div");
-h.id = "rusic-header";
-h.style.cssText = `
-    width: 100%;
-    height: 30px;
-    background: #6C7A89;
-    cursor: move;
-    color: white;
-    font-family: sans-serif;
-    padding-left: 30px; /* leave space for X */
-    line-height: 30px;
-    user-select: none;
-    position: relative;
-`;
-h.textContent = "Embedded Browser";
-
-var cl = document.createElement("div");
-cl.innerHTML = "❌";
-cl.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 5px;
-    font-size: 16px;
-    line-height: 30px;
-    cursor: pointer;
-    color: white;
-    background: none;
-    border: none;
-    padding: 0;
-`;
-cl.onclick = function() { c.remove(); };
-
-/* insert close button before header text */
-h.insertBefore(cl, h.firstChild);
-
-
-        var tb=document.createElement("div");
-        tb.id="rusic-toolbar";
-        tb.style.cssText="display:flex;align-items:center;background:rgba(255,255,255,0.8);padding:5px;";
-
-        var backBtn=document.createElement("button");
-        backBtn.innerHTML="←";
-        backBtn.style.cssText="width:30px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;";
-
-        var fwdBtn=document.createElement("button");
-        fwdBtn.innerHTML="→";
-        fwdBtn.style.cssText="width:30px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;";
-
-        var inp=document.createElement("input");
-        inp.type="text";
-        inp.placeholder="Enter website URL or search...";
-        inp.style.cssText="width:calc(100% - 160px);margin:5px;padding:5px;border:1px solid #ccc;font-size:14px;";
-        inp.id="rusic-url-input";
-
-        var goBtn=document.createElement("button");
-        goBtn.innerHTML="Go";
-        goBtn.style.cssText="width:50px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;";
-
-        var fsBtn=document.createElement("button");
-        fsBtn.innerHTML="⛶";
-        fsBtn.style.cssText="width:30px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;margin-left:auto;";
-        fsBtn.onclick=function(){
-            if(c.classList.contains("fullscreen")){
-                c.classList.remove("fullscreen");
-                c.style.top="100px";
-                c.style.left="100px";
-                c.style.width="800px";
-                c.style.height="600px";
-            } else {
-                c.classList.add("fullscreen");
-                c.style.top="0";
-                c.style.left="0";
-                c.style.width="100vw";
-                c.style.height="100vh";
+            function n() {
+                document.onmouseup = null, document.onmousemove = null
             }
-        };
 
-        var i=document.createElement("iframe");
-        i.style.cssText="width:100%;height:calc(100% - 70px);border:none;";
-        i.id="rusic-modal";
-        i.src="https://blrublrbuerigieroklghlvyavmliarelhsmuazuka.realonesflow.infinityfreeapp.com/";
-
-        /* History system */
-        var historyArray=[],currentIndex=-1;
-        backBtn.onclick=function(){
-            if(currentIndex>0){ currentIndex--; loadNewURL(historyArray[currentIndex]); }
-        };
-        fwdBtn.onclick=function(){
-            if(currentIndex<historyArray.length-1){ currentIndex++; loadNewURL(historyArray[currentIndex]); }
-        };
-        goBtn.onclick=function(){
-            var url=inp.value.trim();
-            if(!url.startsWith("http")){
-                url="https://www.google.com/search?q="+encodeURIComponent(url);
+            function o(e) {
+                gsap.to(r, {
+                    duration: .5,
+                    borderRadius: "50%",
+                    scale: .9
+                }), setTimeout((function() {
+                    f.src = e, p.value = e, gsap.to(r, {
+                        duration: .5,
+                        borderRadius: "12px",
+                        scale: 1
+                    })
+                }), 500)
             }
-            try{ new URL(url); }catch(e){ alert("Invalid URL."); return; }
-            if(currentIndex<historyArray.length-1){
-                historyArray=historyArray.slice(0,currentIndex+1);
-            }
-            historyArray.push(url);
-            currentIndex=historyArray.length-1;
-            loadNewURL(url);
-        };
-
-        h.appendChild(cl);
-        tb.appendChild(backBtn);
-        tb.appendChild(fwdBtn);
-        tb.appendChild(inp);
-        tb.appendChild(goBtn);
-        tb.appendChild(fsBtn);
-        c.appendChild(h);
-        c.appendChild(tb);
-        c.appendChild(i);
-        document.body.appendChild(c);
-
-        var p1=0, p2=0, p3=0, p4=0;
-h.onmousedown = function(e){
-    e.preventDefault();
-    p3 = e.clientX; p4 = e.clientY;
-    document.onmouseup = stopDrag;
-    document.onmousemove = doDrag;
-};
-function doDrag(e){
-    e.preventDefault();
-    p1 = p3 - e.clientX; p2 = p4 - e.clientY;
-    p3 = e.clientX; p4 = e.clientY;
-    let newTop = c.offsetTop - p2;
-    let newLeft = c.offsetLeft - p1;
-    // Clamp inside window
-    newTop = Math.max(0, Math.min(window.innerHeight - c.offsetHeight, newTop));
-    newLeft = Math.max(0, Math.min(window.innerWidth - c.offsetWidth, newLeft));
-    c.style.top = newTop + "px";
-    c.style.left = newLeft + "px";
-}
-function stopDrag(){
-    document.onmouseup = null;
-    document.onmousemove = null;
-}
-
-        /* Resize observer to clamp size */
-        let resizeObserver = new ResizeObserver(() => {
-    /* Only shrink if the container would overflow the viewport */
-    let w = Math.min(c.offsetWidth, window.innerWidth - c.offsetLeft);
-    let h = Math.min(c.offsetHeight, window.innerHeight - c.offsetTop);
-
-    /* Only apply if smaller than current to prevent forced expansion */
-    if (w < c.offsetWidth) c.style.width = w + "px";
-    if (h < c.offsetHeight) c.style.height = h + "px";
-});
-resizeObserver.observe(c);
-
-        /* Animation loader */
-        function loadNewURL(u){
-            gsap.to(c,{duration:0.5,borderRadius:"50%",scale:0.9});
-            setTimeout(function(){
-                i.src=u;
-                inp.value=u;
-                gsap.to(c,{duration:0.5,borderRadius:"12px",scale:1});
-            },500);
-        }
-
-        let prevState = {
-    top: c.style.top,
-    left: c.style.left,
-    width: c.style.width,
-    height: c.style.height
-};
-
-    /* Hide/Unhide with Shift + s */
-    document.addEventListener('keydown', (e) => {
-    if (e.shiftKey && e.key.toLowerCase() === 's' && !e.target.matches('input, textarea')) {
-        if (c.style.display === 'none') {
-            c.style.display = 'block';
-            resizeObserver.disconnect(); 
-            c.style.top = prevState.top;
-            c.style.left = prevState.left;
-            c.style.width = prevState.width;
-            c.style.height = prevState.height;
-            c.style.transform = 'scale(1)';
-            c.style.borderRadius = '12px';
-            resizeObserver.observe(c); 
-        } else {
-           
-            prevState.top = c.style.top;
-            prevState.left = c.style.left;
-            prevState.width = c.style.width;
-            prevState.height = c.style.height;
-            c.style.display = 'none';
-        }
-    }
-});
-
-
-        /* Toggle topbar with Shift+F */
-        document.addEventListener("keydown",function(ev){
-            if(ev.key.toLowerCase()==="f" && ev.shiftKey && !ev.target.matches("input, textarea")){
-                let head=document.getElementById("rusic-header");
-                let tool=document.getElementById("rusic-toolbar");
-                let hidden=head.style.display==="none";
-                head.style.display=hidden?"block":"none";
-                tool.style.display=hidden?"flex":"none";
-                i.style.height=hidden?"calc(100% - 70px)":"100%";
-            }
-        });
-    }
-})();
+            var i = document.createElement("style");
+            i.innerHTML = "@keyframes glowEffect {0% { box-shadow: 0 0 10px white; }50% { box-shadow: 0 0 20px black; }100% { box-shadow: 0 0 10px white; }}#rusic-container { resize: both; }", document.head.appendChild(i);
+            var r = document.createElement("div");
+            r.id = "rusic-container", r.style.cssText = "position:fixed;z-index:999999;top:100px;left:100px;width:800px;height:600px;border:2px solid white;overflow:hidden;background:url('https://plus.unsplash.com/premium_photo-1683133681452-07ee1fc4ffca?w=900&auto=format&fit=crop&q=60') no-repeat center center;background-size:cover;animation:glowEffect 3s infinite alternate;border-radius:12px;";
+            var s = document.createElement("div");
+            s.id = "rusic-header", s.style.cssText = "width: 100%;height: 30px;background: #6C7A89;cursor: move;color: white;font-family: sans-serif;padding-left: 30px; /* leave space for X */line-height: 30px;user-select: none;position: relative;\n", s.textContent = "Embedded Browser";
+            var l = document.createElement("div");
+            l.innerHTML = "❌", l.style.cssText = "position: absolute;top: 0;left: 5px;font-size: 16px;line-height: 30px;cursor: pointer;color: white;background: none;border: none;padding: 0;\n", l.onclick = function() {
+                r.remove()
+            }, s.insertBefore(l, s.firstChild);
+            var d = document.createElement("div");
+            d.id = "rusic-toolbar", d.style.cssText = "display:flex;align-items:center;background:rgba(255,255,255,0.8);padding:5px;";
+            var a = document.createElement("button");
+            a.innerHTML = "←", a.style.cssText = "width:30px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;";
+            var c = document.createElement("button");
+            c.innerHTML = "→", c.style.cssText = "width:30px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;";
+            var p = document.createElement("input");
+            p.type = "text", p.placeholder = "Enter website URL or search...", p.style.cssText = "width:calc(100% - 160px);margin:5px;padding:5px;border:1px solid #ccc;font-size:14px;", p.id = "rusic-url-input";
+            var h = document.createElement("button");
+            h.innerHTML = "Go", h.style.cssText = "width:50px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;";
+            var u = document.createElement("button");
+            u.innerHTML = "⛶", u.style.cssText = "width:30px;margin:5px;padding:5px;background:#6C7A89;color:white;border:none;cursor:pointer;margin-left:auto;", u.onclick = function() {
+                r.classList.contains("fullscreen") ? (r.classList.remove("fullscreen"), r.style.top = "100px", r.style.left = "100px", r.style.width = "800px", r.style.height = "600px") : (r.classList.add("fullscreen"), r.style.top = "0", r.style.left = "0", r.style.width = "100vw", r.style.height = "100vh")
+            };
+            var f = document.createElement("iframe");
+            f.style.cssText = "width:100%;height:calc(100% - 70px);border:none;", f.id = "rusic-modal", f.src = "https://blrublrbuerigieroklghlvyavmliarelhsmuazuka.realonesflow.infinityfreeapp.com/";
+            var m = [],
+                x = -1;
+            a.onclick = function() {
+                0 < x && (x--, o(m[x]))
+            }, c.onclick = function() {
+                x < m.length - 1 && (x++, o(m[x]))
+            }, h.onclick = function() {
+                var e = p.value.trim();
+                e.startsWith("http") || (e = "https://www.google.com/search?q=" + encodeURIComponent(e));
+                try {
+                    new URL(e)
+                } catch (e) {
+                    return void alert("Invalid URL.")
+                }
+                x < m.length - 1 && (m = m.slice(0, x + 1)), m.push(e), x = m.length - 1, o(e)
+            }, s.appendChild(l), d.appendChild(a), d.appendChild(c), d.appendChild(p), d.appendChild(h), d.appendChild(u), r.appendChild(s), r.appendChild(d), r.appendChild(f), document.body.appendChild(r);
+            var y = 0,
+                g = 0,
+                w = 0,
+                v = 0;
+            s.onmousedown = function(e) {
+                e.preventDefault(), w = e.clientX, v = e.clientY, document.onmouseup = n, document.onmousemove = t
+            };
+            let b = new ResizeObserver((() => {
+                let t = e(r.offsetWidth, window.innerWidth - r.offsetLeft),
+                    n = e(r.offsetHeight, window.innerHeight - r.offsetTop);
+                t < r.offsetWidth && (r.style.width = t + "px"), n < r.offsetHeight && (r.style.height = n + "px")
+            }));
+            b.observe(r);
+            let k = {
+                top: r.style.top,
+                left: r.style.left,
+                width: r.style.width,
+                height: r.style.height
+            };
+            document.addEventListener("keydown", (e => {
+                e.shiftKey && "s" === e.key.toLowerCase() && !e.target.matches("input, textarea") && ("none" === r.style.display ? (r.style.display = "block", b.disconnect(), r.style.top = k.top, r.style.left = k.left, r.style.width = k.width, r.style.height = k.height, r.style.transform = "scale(1)", r.style.borderRadius = "12px", b.observe(r)) : (k.top = r.style.top, k.left = r.style.left, k.width = r.style.width, k.height = r.style.height, r.style.display = "none"))
+            })), document.addEventListener("keydown", (function(e) {
+                if ("f" === e.key.toLowerCase() && e.shiftKey && !e.target.matches("input, textarea")) {
+                    let e = document.getElementById("rusic-header"),
+                        t = document.getElementById("rusic-toolbar"),
+                        n = "none" === e.style.display;
+                    e.style.display = n ? "block" : "none", t.style.display = n ? "flex" : "none", f.style.height = n ? "calc(100% - 70px)" : "100%"
+                }
+            }))
+        }()
+    }, document.head.appendChild(t)
+}();
