@@ -1,4 +1,4 @@
-javascript:(function(){
+(function(){
     var e=document.getElementById("rusic-container");
     if(e) e.remove();
 
