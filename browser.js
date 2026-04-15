@@ -24,7 +24,7 @@
                     borderRadius: "50%",
                     scale: .9
                 }), setTimeout((function() {
-                    f.src = e, p.value = e, gsap.to(r, {
+                    f.src = "http://localhost:3000/proxy?url=" + encodeURIComponent(e), p.value = e, gsap.to(r, {
                         duration: .5,
                         borderRadius: "12px",
                         scale: 1
